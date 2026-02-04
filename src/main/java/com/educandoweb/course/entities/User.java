@@ -1,10 +1,18 @@
 package com.educandoweb.course.entities;
 
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.util.Objects;
 
+@Entity
+@Table(name="tb_user")
 public class User implements Serializable {
 
+    @Id
+    // primary key
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // estratégia de auto incremento
     private Long id;
     private String name;
     private String email;
