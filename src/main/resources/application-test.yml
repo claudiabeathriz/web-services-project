@@ -1,6 +1,7 @@
 spring:
   datasource:
     url: jdbc:h2:mem:web-services
+    # configura um banco H2 em memória
     driver-class-name: org.h2.Driver
     username: sa
     password: ""
@@ -14,6 +15,7 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: create-drop
+      # cria as tabelas ao iniciar a aplicação e remove ao finalizar
     show-sql: true
     properties:
       hibernate:

@@ -11,13 +11,19 @@ import java.util.Arrays;
 
 @Configuration
 @Profile("test")
+// não polui banco real
 public class TestConfig implements CommandLineRunner {
-
+    // interface que possui o metodo run
+    // >popular o banco H2 automaticamente<
     @Autowired
     private UserRepository userRepository;
 
     @Override
     public void run(String... args) throws Exception {
+        // dentro do metodo é executado
+        // depois que a aplicação sobe
+        // depois que o contexto Spring é carregado
+        // antes da aplicação começar a receber requisições
         User u1 = new User(null, "Maria da Silva", "mariadasilva@email.com", "9888-8888", "Msenha");
         User u2 = new User(null, "Pedro da Silva", "pedrodasilva@email.com", "9777-7777", "Psenha");
 
