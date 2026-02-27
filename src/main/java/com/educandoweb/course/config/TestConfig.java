@@ -2,6 +2,7 @@ package com.educandoweb.course.config;
 
 import com.educandoweb.course.entities.Order;
 import com.educandoweb.course.entities.User;
+import com.educandoweb.course.entities.enums.OrderStatus;
 import com.educandoweb.course.repositories.OrderRepository;
 import com.educandoweb.course.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +34,9 @@ public class TestConfig implements CommandLineRunner {
         User u2 = new User(null, "Pedro da Silva", "pedrodasilva@email.com", "9777-7777", "Psenha");
 
         // ISO 8601
-        Order o1 = new Order(null, Instant.parse("2026-02-26T18:36:59Z"), u1);
-        Order o2 = new Order(null, Instant.parse("2026-02-26T18:38:59Z"), u2);
-        Order o3 = new Order(null, Instant.parse("2026-02-26T18:40:59Z"), u1);
+        Order o1 = new Order(null, Instant.parse("2026-02-26T18:36:59Z"), u1, OrderStatus.WAITING_PAYMENT);
+        Order o2 = new Order(null, Instant.parse("2026-02-26T18:38:59Z"), u1, OrderStatus.WAITING_PAYMENT);
+        Order o3 = new Order(null, Instant.parse("2026-02-26T18:40:59Z"), u1, OrderStatus.CANCELLED);
 
         userRepository.saveAll(Arrays.asList(u1, u2));
         orderRepository.saveAll(Arrays.asList(o1, o2, o3));
