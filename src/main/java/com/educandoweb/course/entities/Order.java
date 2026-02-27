@@ -1,5 +1,7 @@
 package com.educandoweb.course.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -14,9 +16,15 @@ public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant moment;
 
-    @ManyToOne
+    @JsonIgnore // -> não vai mostrar o usuário atrelado ao pedido
+    // em relacionamento bidirecional:
+    // um lado deve ser ignorado na serialização
+    // geralmente ignora o lado @ManyToOne; para isso servirão os DTOs futuramente
+    @ManyToOne // EAGER (carrega junto)
     // many orders to one client
     @JoinColumn(name = "client_id")
     private User client;

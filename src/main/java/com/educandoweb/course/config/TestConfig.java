@@ -1,12 +1,14 @@
 package com.educandoweb.course.config;
 
+import com.educandoweb.course.entities.Order;
 import com.educandoweb.course.entities.User;
+import com.educandoweb.course.repositories.OrderRepository;
 import com.educandoweb.course.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-
+import java.time.Instant;
 import java.util.Arrays;
 
 @Configuration
@@ -18,6 +20,9 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private OrderRepository orderRepository;
+
     @Override
     public void run(String... args) throws Exception {
         // dentro do metodo é executado
@@ -27,6 +32,12 @@ public class TestConfig implements CommandLineRunner {
         User u1 = new User(null, "Maria da Silva", "mariadasilva@email.com", "9888-8888", "Msenha");
         User u2 = new User(null, "Pedro da Silva", "pedrodasilva@email.com", "9777-7777", "Psenha");
 
+        // ISO 8601
+        Order o1 = new Order(null, Instant.parse("2026-02-26T18:36:59Z"), u1);
+        Order o2 = new Order(null, Instant.parse("2026-02-26T18:38:59Z"), u2);
+        Order o3 = new Order(null, Instant.parse("2026-02-26T18:40:59Z"), u1);
+
         userRepository.saveAll(Arrays.asList(u1, u2));
+        orderRepository.saveAll(Arrays.asList(o1, o2, o3));
     }
 }

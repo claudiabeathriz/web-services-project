@@ -1,5 +1,6 @@
 package com.educandoweb.course.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -22,7 +23,8 @@ public class User implements Serializable {
     private String phone;
     private String password;
 
-    @OneToMany(mappedBy = "client")
+    //@JsonIgnore -> não mostraria os pedidos
+    @OneToMany(mappedBy = "client") //LAZY (não carrega automaticamente)
     private List<Order> orders = new ArrayList<>();
 
     public User() {
