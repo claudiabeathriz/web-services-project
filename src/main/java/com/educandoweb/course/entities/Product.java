@@ -3,14 +3,15 @@ package com.educandoweb.course.entities;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_product")
 public class Product implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    // nao pode esquecer de fazer as associações com product e order item(?)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     // checar se a pk faz assim mesmo (conferir com category)
@@ -20,6 +21,11 @@ public class Product implements Serializable {
     private String description;
     private Double price;
     private String imgUrl;
+
+    @Transient
+    private Set<Category> categories = new HashSet<>();
+    // instanciando para garantir que nao comece nula
+    // set é interface, nao pode ser instanciada; logo, hashset
 
     public Product() {
     }
@@ -71,6 +77,14 @@ public class Product implements Serializable {
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
     }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    //public void setCategories(Set<Category> categories) {
+    //  this.categories = categories;
+    //}
 
     @Override
     public boolean equals(Object o) {
