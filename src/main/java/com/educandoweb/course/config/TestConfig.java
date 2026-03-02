@@ -40,13 +40,6 @@ public class TestConfig implements CommandLineRunner {
         // depois que a aplicação sobe
         // depois que o contexto Spring é carregado
         // antes da aplicação começar a receber requisições
-        User u1 = new User(null, "Maria da Silva", "mariadasilva@email.com", "9888-8888", "Msenha");
-        User u2 = new User(null, "Pedro da Silva", "pedrodasilva@email.com", "9777-7777", "Psenha");
-
-        // ISO 8601
-        Order o1 = new Order(null, Instant.parse("2026-02-26T18:36:59Z"), u1, OrderStatus.WAITING_PAYMENT);
-        Order o2 = new Order(null, Instant.parse("2026-02-26T18:38:59Z"), u1, OrderStatus.WAITING_PAYMENT);
-        Order o3 = new Order(null, Instant.parse("2026-02-26T18:40:59Z"), u1, OrderStatus.CANCELLED);
 
         Category c1 = new Category(null, "Eletronics");
         Category c2 = new Category(null, "Books");
@@ -58,9 +51,27 @@ public class TestConfig implements CommandLineRunner {
         Product p4 = new Product(null, "PC Gamer", "Donec aliquet odio ac rhoncus cursus.", 1200.0, "");
         Product p5 = new Product(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, "");
 
-        userRepository.saveAll(Arrays.asList(u1, u2));
-        orderRepository.saveAll(Arrays.asList(o1, o2, o3));
         categoryRepository.saveAll(Arrays.asList(c1, c2, c3));
         productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
+
+        p1.getCategories().add(c2);
+        p2.getCategories().add(c1);
+        p2.getCategories().add(c3);
+        p3.getCategories().add(c3);
+        p4.getCategories().add(c3);
+        p5.getCategories().add(c2);
+
+        productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
+
+        User u1 = new User(null, "Maria da Silva", "mariadasilva@email.com", "9888-8888", "Msenha");
+        User u2 = new User(null, "Pedro da Silva", "pedrodasilva@email.com", "9777-7777", "Psenha");
+
+        // ISO 8601
+        Order o1 = new Order(null, Instant.parse("2026-02-26T18:36:59Z"), u1, OrderStatus.WAITING_PAYMENT);
+        Order o2 = new Order(null, Instant.parse("2026-02-26T18:38:59Z"), u1, OrderStatus.WAITING_PAYMENT);
+        Order o3 = new Order(null, Instant.parse("2026-02-26T18:40:59Z"), u1, OrderStatus.CANCELLED);
+
+        userRepository.saveAll(Arrays.asList(u1, u2));
+        orderRepository.saveAll(Arrays.asList(o1, o2, o3));
     }
 }
