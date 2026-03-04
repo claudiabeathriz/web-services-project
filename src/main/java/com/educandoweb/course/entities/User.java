@@ -23,7 +23,7 @@ public class User implements Serializable {
     private String phone;
     private String password;
 
-    //@JsonIgnore -> não mostraria os pedidos
+    @JsonIgnore // -> não mostraria os pedidos
     @OneToMany(mappedBy = "client") //LAZY (não carrega automaticamente)
     private List<Order> orders = new ArrayList<>();
 

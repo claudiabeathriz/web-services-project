@@ -25,10 +25,12 @@ public class Order implements Serializable {
 
     private Integer orderStatus;
 
-    @JsonIgnore // -> não vai mostrar o usuário atrelado ao pedido
+    // @JsonIgnore // -> não vai mostrar o usuário atrelado ao pedido
     // em relacionamento bidirecional:
     // um lado deve ser ignorado na serialização
-    // geralmente ignora o lado @ManyToOne; para isso servirão os DTOs futuramente
+    // geralmente ignora o lado @ManyToOne;
+    // para isso servirão os DTOs futuramente
+    // ^- o professor usou o ignore em user
     @ManyToOne // EAGER (carrega junto)
     // many orders to one client
     @JoinColumn(name = "client_id")

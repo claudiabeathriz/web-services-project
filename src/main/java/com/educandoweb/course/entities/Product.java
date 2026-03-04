@@ -1,5 +1,6 @@
 package com.educandoweb.course.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -28,8 +29,11 @@ public class Product implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
 
-
-    // private Set<OrderItem> items = new HashSet<>();
+    @OneToMany(mappedBy = "id.product")
+    // o dono da relação está dentro do atributo id,
+    // e dentro dele no campo product
+    private Set<OrderItem> items = new HashSet<>();
+    // Set != List: não permite repetições do mesmo item
 
     public Product() {
     }
@@ -89,6 +93,17 @@ public class Product implements Serializable {
     //public void setCategories(Set<Category> categories) {
     //  this.categories = categories;
     //}
+
+    @JsonIgnore
+    public Set<Order> getOrders(){ // “simulação manual” de um ManyToMany
+        // quer retornar todos os pedidos que contêm x produto
+        Set<Order> set = new HashSet<>();
+        // um mesmo pedido não pode aparecer duas vezes
+        for(OrderItem x : items){
+            set.add(x.getOrder());
+        }
+        return set;
+    }
 
     @Override
     public boolean equals(Object o) {
