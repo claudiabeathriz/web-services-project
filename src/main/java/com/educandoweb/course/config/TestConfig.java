@@ -64,7 +64,7 @@ public class TestConfig implements CommandLineRunner {
         User u2 = new User(null, "Pedro da Silva", "pedrodasilva@email.com", "9777-7777", "Psenha");
 
         // ISO 8601
-        Order o1 = new Order(null, Instant.parse("2026-02-26T18:36:59Z"), u1, OrderStatus.WAITING_PAYMENT);
+        Order o1 = new Order(null, Instant.parse("2026-02-26T18:36:59Z"), u1, OrderStatus.PAID);
         Order o2 = new Order(null, Instant.parse("2026-02-26T18:38:59Z"), u1, OrderStatus.WAITING_PAYMENT);
         Order o3 = new Order(null, Instant.parse("2026-02-26T18:40:59Z"), u1, OrderStatus.CANCELLED);
 
@@ -77,5 +77,12 @@ public class TestConfig implements CommandLineRunner {
         OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
 
         orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+
+        Payment pay1 = new Payment(null, Instant.parse("2026-02-26T20:36:59Z"), o1);
+        o1.setPayment(pay1);
+        // associação bidirecional
+        // JPA não sincroniza automaticamente os dois lados da relação
+
+        orderRepository.save(o1);
     }
 }
