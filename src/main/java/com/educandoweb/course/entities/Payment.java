@@ -20,7 +20,8 @@ public class Payment implements Serializable {
 
     @OneToOne
     @MapsId // Payment is an extension of Order;
-    // O ID desse objeto vem da entidade relacionada - depende de Order
+    // O ID desse objeto vem da entidade relacionada
+    // depende de Order
     @JsonIgnore
     private Order order;
 
