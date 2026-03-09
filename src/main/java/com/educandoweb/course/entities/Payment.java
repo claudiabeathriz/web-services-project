@@ -19,7 +19,7 @@ public class Payment implements Serializable {
     private Instant moment;
 
     @OneToOne
-    @MapsId // Payment is an extension of Order;
+    @MapsId // Payment is an extension of Order
     // O ID desse objeto vem da entidade relacionada
     // depende de Order
     @JsonIgnore
