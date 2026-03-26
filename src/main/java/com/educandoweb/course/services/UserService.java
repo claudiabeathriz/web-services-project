@@ -31,9 +31,13 @@ public class UserService {
         return repository.save(obj);
     }
 
-    public void delete(Long id){
-        repository.deleteById(id);
-    }
+    //public void delete(Long id){
+      //  try {
+        //    repository.deleteById(id);
+        //} catch(RuntimeException e){
+         //       e.printStackTrace();
+       // }
+    //}
 
     public User update(Long id, User obj){
         User entity = repository.getReferenceById(id);
