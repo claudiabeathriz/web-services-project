@@ -31,7 +31,7 @@ public class UserService {
         return repository.save(obj);
     }
 
-    //public void delete(Long id){
+    // public void delete(Long id){
       //  try {
         //    repository.deleteById(id);
         //} catch(RuntimeException e){
